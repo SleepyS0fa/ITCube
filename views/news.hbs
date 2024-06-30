@@ -1,0 +1,43 @@
+<div class="row d-flex flex-column align-items-center">
+    <div class="col-11 d-flex flex-column align-items-center">
+        {{#unless news}}
+            <div class="row m-3">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-lg" viewBox="0 0 16 16">
+                    <path d="M7.005 3.1a1 1 0 1 1 1.99 0l-.388 6.35a.61.61 0 0 1-1.214 0zM7 12a1 1 0 1 1 2 0 1 1 0 0 1-2 0"/>
+                </svg>
+                <p>Новостей не найдено. Но мы их обязательно найдем</p>
+            </div>
+        {{/unless}}
+        {{#each news}}
+            <div class="card col-11 p-3 mt-4">
+                <img class="rounded mx-auto d-block img-fluid" src="{{img}}" alt="" height="300" width="770">
+                <div class="card-body">
+                    <div class="card-title h5">{{title}}</div>
+                    <div class="card-text">{{{previewText}}}</div>
+                    <br>
+                    <a href="/news/{{title}}" class="btn btn-primary">Подробнее</a>
+                    <p class="text-end">{{dateOfCreate}}</p>
+                </div>
+            </div>
+        {{/each}}
+
+        <hr>
+        <div class="d-flex">
+            <form action="/news/create" method="post" enctype="multipart/form-data">
+                <label class="form-label" for="title">Заголовок</label>
+                <input class="form-control" id="title" type="text" name="title">
+
+                <label class="form-label" for="image">Фото новости</label>
+                <input multiple class="form-control" accept="image/*" type="file" name="image" id="image">
+
+                <input class="form-check-input" type="checkbox" name="save" id="checkbox">
+                <label class="form-check-label" for="checkbox">сохранить в фотоальбом</label><br>
+
+                <label class="form-label" for="mainText">Текст</label>
+                <input class="form-control" type="text" id="mainText" name="text">
+
+                <button type="submit" class="btn btn-success">Опубликовать статью</button>
+            </form>
+        </div>
+    </div>
+</div>

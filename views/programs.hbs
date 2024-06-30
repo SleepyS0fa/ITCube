@@ -1,0 +1,15 @@
+<div class="row d-flex flex-column align-items-center">
+    <div class="col-11 d-flex flex-column align-items-center">
+        {{#each content}}
+            <div class="card col-11 p-3 mt-4">
+                <img src="{{img}}" class="rounded mx-auto d-block img-fluid" alt="">
+                <div class="card-body">
+                    <div class="card-title h5">{{title}}</div>
+                    <div class="card-text">{{{body}}}</div>
+                    <br>
+                    <a href="{{src}}" class="btn btn-primary">Подробнее</a>
+                </div>
+            </div>
+        {{/each}}
+    </div>
+</div>

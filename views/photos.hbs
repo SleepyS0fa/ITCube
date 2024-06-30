@@ -1,0 +1,25 @@
+<div class="d-flex flex-row justify-content-center m-2">
+    <div class="d-flex flex-column justify-content-start align-items-start flex-wrap col-4">
+        {{#each image1}}
+            <img src="{{img}}" class="card-img-top p-1 rounded mx-auto img-fluid" alt="...">
+        {{/each}}
+    </div>
+    <div class="d-flex flex-column justify-content-start align-items-start flex-wrap col-4">
+        {{#each image2}}
+            <img src="{{img}}" class="card-img-top p-1 rounded mx-auto img-fluid" alt="...">
+        {{/each}}
+    </div>
+    <div class="d-flex flex-column justify-content-start align-items-start flex-wrap col-4">
+        {{#each image3}}
+            <img src="{{img}}" class="card-img-top p-1 rounded mx-auto img-fluid" alt="...">
+        {{/each}}
+    </div>
+
+</div>
+<form action="/photos/add" method="post" enctype="multipart/form-data">
+    <label class="form-label" for="images">до 10 фотографий</label>
+    <input multiple class="form-control" accept="image/*" type="file" name="images" id="images">
+
+    <button type="submit" class="btn btn-success mt-3">Опубликовать фото</button>
+</form>
+

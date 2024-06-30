@@ -1,0 +1,94 @@
+<div class="table">
+    <ul class="list-group">
+        {{#each timetable}}
+            <li class="list-group-item">
+                <strong>{{title}}</strong>
+                <a href="/timetable/delete/{{_id}}" class="btn bg-danger text-white">Удалить</a>
+                {{#each groups}}
+                    <div class="text">{{nameGroup}}</div>
+                    <div class="col-6 d-flex flex-row flex-wrap">
+                    {{#each lines}}
+                        <div class="col-3">
+                            <p>{{day}}</p>
+                        </div>
+                        <div class="col-3">
+                            <p>{{time}}</p>
+                        </div>
+                    {{/each}}
+                    </div>
+                {{/each}}
+            </li>
+        {{/each}}
+    </ul>
+</div>
+
+<div>
+    <a href="/docs/расписание.xlsx" class="mt-2 btn btn-primary">Скачать таблицу</a>
+</div>
+<hr>
+<form class="col-5" action="/timetable/create" method="post">
+    <div class="col mt-2">
+        <label for="program" class="form-label">Направление</label>
+        <select id="program" class="form-select" name="title">
+            {{#each programs}}
+                <option value="{{title}}">{{title}}</option>
+            {{/each}}
+        </select>
+    </div>
+
+    <div class="col-6 mt-2">
+        <label for="name">Название группы</label>
+        <input class="form-control" type="text" id="name" name="nameGroup">
+    </div>
+
+    <div class="d-flex flex-row align-items-end flex-nowrap mt-2">
+
+        <div class="col-auto me-2" id="dayList">
+            <label for="day" class="form-label">День недели</label>
+            <input class="form-control" id="day" type="text" name="day">
+        </div>
+        <div class="col-auto me-2" id="timeList">
+            <label for="time" class="form-label">Время</label>
+            <input class="form-control" id="time" type="time" name="time">
+        </div>
+        <button type="button" class="btn border me-2" id="moreBtn">+</button>
+        <button type="button" class="btn border me-2" id="lessBtn">–</button>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4">Отправить</button>
+</form>
+
+<form class="col-5 mt-2" action="/timetable/addFile" method="post">
+    <hr>
+    <label class="form-label" for="file">Добавить/заменить файл таблицы расписания</label>
+    <input class="form-control" type="file" accept=".xls, .xlsx, .xlsm">
+
+    <button type="submit" class="btn btn-primary mt-4">Отправить</button>
+</form>
+
+<script>
+    document.querySelector("#moreBtn").addEventListener("click", function () {
+        let day = document.querySelector('#dayList');
+        let time = document.querySelector('#timeList');
+        let entry = document.createElement('input');
+        entry.type = 'text';
+        entry.classList.add("form-control", "mt-1");
+        entry.name = 'day';
+        day.appendChild(entry);
+
+        entry = document.createElement('input');
+        entry.type = 'time';
+        entry.classList.add("form-control", "mt-1");
+        entry.name = 'time';
+        time.appendChild(entry);
+    })
+
+    document.querySelector("#lessBtn").addEventListener("click", function () {
+        let day = document.querySelector('#dayList').children;
+        let time = document.querySelector('#timeList').children;
+        if (document.querySelector('#dayList').childElementCount > 2) {
+            day[day.length-1].remove();
+            time[time.length-1].remove();
+        }
+    })
+</script>
