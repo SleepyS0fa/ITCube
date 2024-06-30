@@ -51,10 +51,10 @@ router.get('/programs', async function (req, res) {
   res.render('programs.hbs',{content: await db.getAll("programs")} );
 });
 
-router.get("/more", function(req, res) {
+router.get("/more", async function(req, res) {
   const about = req.query.about;
-  
-  res.render("aboutProgram.hbs");
+
+  res.render("aboutProgram.hbs", {content: await db.getByTitle("programs" ,"Мобильная разработка")});
 })
 
 router.get('/documentation', async function(req, res) {
