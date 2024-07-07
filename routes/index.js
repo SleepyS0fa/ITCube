@@ -54,7 +54,21 @@ router.get('/programs', async function (req, res) {
 router.get("/more", async function(req, res) {
   const about = req.query.about;
 
-  res.render("aboutProgram.hbs", {content: await db.getByTitle("programs" ,"Мобильная разработка")});
+  res.render("aboutProgram.hbs", {content: await db.getByTitle("programsAbout" , about)});
+});
+
+router.post("/more", uploadImage.array("image", 1),async function(req, res) {
+  const about = req.query.about;
+  let model = {};
+  model.title = req.body.title;
+  model.img = req.body.img;
+  model.previewText = req.body.previewText;
+  model.mainText = req.body.mainText;
+  model.requirementList = req.body.requirementList;
+  model.docsList = req.body.docs;
+  db.save("programsAbout", model).finally(()=> {
+    res.redirect(`/more?about=${req.query.about}`);
+  })
 })
 
 router.get('/documentation', async function(req, res) {

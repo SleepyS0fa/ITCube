@@ -33,6 +33,7 @@
 
 <div class="mt-3">
 {{textMain}}
+<strong>(рыба текст)</strong>
 <h3>Кому подойдет это направление</h3>
 Ясность нашей позиции очевидна: новая модель организационной деятельности играет определяющее значение для глубокомысленных рассуждений. И нет сомнений, что стремящиеся вытеснить традиционное производство, нанотехнологии могут быть превращены в посмешище, хотя само их существование приносит несомненную пользу обществу. Но ключевые особенности структуры проекта являются только методом политического участия и представлены в исключительно положительном свете. Идейные соображения высшего порядка, а также высококачественный прототип будущего проекта играет важную роль в формировании благоприятных перспектив. Современные технологии достигли такого уровня, что граница обучения кадров однозначно определяет каждого участника как способного принимать собственные решения касаемо благоприятных перспектив. Прежде всего, семантический разбор внешних противодействий влечет за собой процесс внедрения и модернизации новых принципов формирования материально-технической и кадровой базы.
 <br>
@@ -48,19 +49,63 @@
 
 <div>
     <ul class="list-group mt-3">
-        <li class="list-group-item list-group-item-secondary"><strong>Необходимые документы</strong></li>
+        <li class="list-group-item list-group-item-secondary"><strong>Что нужно для поступления</strong></li>
         <li class="list-group-item">Копия паспорта ребёнка</li>
         <li class="list-group-item">Заявление заполненное от руки (<a href="/docs/doc1.docx">шаблон</a>)</li>
         <li class="list-group-item">Документ №3</li>
+        <li class="list-group-item">Привезти их по адресу: <u>г. Воронеж, пр-кт Революции, д.20</u></li>
     </ul>
-    <p class="mt-2">
-        После подготовки документов необходимо привезти их по адресу:<br>
-        <u>г. Воронеж, пр-кт Революции, д.20</u>
-    </p>
 </div>
 
-<div class="row mt-3">
-    <div class="col-12">
-        {{content.text}}
+<form class="form m-3" action="/more?about={{title}}" method="post" enctype="multipart/form-data">
+
+    <input class="form-control" required type="text" name="title" id="title" placeholder="Название программы">
+    <input class="form-control" required type="file" name="image" id="image" accept="image/*">
+    <input class="form-control" required type="text" name="previewText" id="previewText" placeholder="Заглавный абзац">
+    <input class="form-control" required type="text" name="mainText" id="mainText" placeholder="Основной текст">
+    
+    <div class="requirementBlock mt-5">
+        <div id="requirementList">
+            <input class="form-control" required type="text" name="requirements" id="requirements">
+        </div>
+        
+        <button type="button" class="btn border me-2" id="moreReq">+</button>
+        <button type="button" class="btn border me-2" id="lessReq">–</button>
     </div>
-</div>
+    
+    <div class="docsBlock">
+        <div id="docsList">
+            <input class="form-control" required type="text" name="docs" id="docs">
+        </div>
+
+        <button type="button" class="btn border me-2" id="moreDoc" targetDiv="docsList" childName="docs">+</button>
+        <button type="button" class="btn border me-2" id="lessDoc" targetDiv="docsList">–</button>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-4">Добавить</button>
+</form>
+
+{{!-- Не срабатывают события --}}
+<script>
+    function more(e) {
+        console.log(document.querySelector(`#${e.targetDiv}`))
+        let entry = document.createElement('input');
+        entry.type = 'text';
+        entry.classList.add("form-control", "mt-1");
+        entry.name = e.childName;
+        document.querySelector(`#${e.target}`).appendChild(entry);
+    }
+    function less(target) {
+        let targetNode = document.querySelector(`#${target}`);
+        
+        if (targetNode.childElementCount >= 2) {
+            targetNode.children[targetNode.children.length-1].remove();
+        }
+    }
+
+    document.querySelector("#moreReq").addEventListener("click", more);
+    document.querySelector("#lessReq").addEventListener("click", less);
+    document.querySelector("#moreDoc").addEventListener("click", more);
+    document.querySelector("#lessDoc").addEventListener("click", less);
+    
+</script>
