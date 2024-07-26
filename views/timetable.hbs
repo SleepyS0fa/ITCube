@@ -1,9 +1,104 @@
+{{#if admin}}
+    <div class="input-group">
+        <button type="button" class="btn btn-outline-primary col-6 flex-column align-items-center shadow-sm" data-bs-toggle="modal" data-bs-target="#addGroupTimetable">Добавить группу</button>
+        <button type="button" class="btn btn-outline-primary col-6 flex-column align-items-center shadow-sm" data-bs-toggle="modal" data-bs-target="#newfile">Добавить документ</button>
+    </div>
+
+    <div class="modal fade" id="addGroupTimetable" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-lg-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить расписание</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <form action="/add" id="addGroupTimetableForm" method="post">
+                        <select class="form-control" name="title" id="title">
+                            {{#each programs}}
+                                <option value="{{src}}">{{title}}</option>
+                            {{/each}}
+                        </select>
+                        <input class="form-control" type="text" name="nameGroup" placeholder="Название группы">
+
+                        <div class="d-flex align-items-end col-lg-12">
+                            <div id="day" class="col-6 pe-1">
+                                <input class="form-control" type="text" name="day" placeholder="день">
+                            </div>
+                            <div id="time" class="col-3 ps-1">
+                                <input class="form-control" type="time" name="time">
+                            </div>
+                            <button type="button" id="less" class="btn btn-outline-dark ms-1">−</button>
+                            <button type="button" id="more" class="btn btn-outline-dark ms-1">+</button>
+                        </div>
+                    </form>
+                    <script>
+                        document.querySelector("#more").addEventListener("click", () => {
+                            let day = document.createElement("input");
+                            day.type = "text";
+                            day.name = "day";
+                            day.classList.add("form-control");
+                            let time = document.createElement("input");
+                            time.type = "time";
+                            time.name = "time";
+                            time.classList.add("form-control");
+                            document.querySelector("#day").appendChild(day);
+                            document.querySelector("#time").appendChild(time);
+                        });
+
+                        document.querySelector("#less").addEventListener("click", () => {
+                            let dayNode = document.querySelector("#day");
+                            let timeNode = document.querySelector("#time");
+                            
+                            if (dayNode.childElementCount >= 2) {
+                                dayNode.children[dayNode.children.length-1].remove();
+                            }
+                            if (timeNode.childElementCount >= 2) {
+                                timeNode.children[timeNode.children.length-1].remove();
+                            }
+
+                        });
+                    </script>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="submit" form="addGroupTimetableForm" class="btn btn-success mt-2">Добавить</button>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <div class="modal fade" id="newfile" tabindex="-1" aria-labelledby="newfile" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-lg-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить файл расписания</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form action="/add" id="newfileForm" enctype="multipart/form-data" method="post">
+                    <input class="form-control mt-2" type="file" name="timetable" id="timetable">
+                    </div>
+                </form>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="submit" form="newfileForm" class="btn btn-success mt-2">Добавить</button>
+            </div>
+        </div>
+    </div>
+    </div>
+{{/if}}
+
+
 <div class="table">
     <ul class="list-group">
         {{#each timetable}}
             <li class="list-group-item">
                 <strong>{{title}}</strong>
-                <a href="/timetable/delete/{{_id}}" class="btn bg-danger text-white">Удалить</a>
+                {{#if admin}}
+                    <a href="/timetable/delete/{{_id}}" class="btn bg-danger text-white">Удалить</a>
+                {{/if}}
                 {{#each groups}}
                     <div class="text">{{nameGroup}}</div>
                     <div class="col-6 d-flex flex-row flex-wrap">
@@ -23,72 +118,5 @@
 </div>
 
 <div>
-    <a href="/docs/расписание.xlsx" class="mt-2 btn btn-primary">Скачать таблицу</a>
+    <a href="={{timetableDoc}}" class="mt-2 btn btn-primary">Скачать таблицу</a>
 </div>
-<hr>
-<form class="col-5" action="/timetable/create" method="post">
-    <div class="col mt-2">
-        <label for="program" class="form-label">Направление</label>
-        <select id="program" class="form-select" name="title">
-            {{#each programs}}
-                <option value="{{title}}">{{title}}</option>
-            {{/each}}
-        </select>
-    </div>
-
-    <div class="col-6 mt-2">
-        <label for="name">Название группы</label>
-        <input class="form-control" type="text" id="name" name="nameGroup">
-    </div>
-
-    <div class="d-flex flex-row align-items-end flex-nowrap mt-2">
-
-        <div class="col-auto me-2" id="dayList">
-            <label for="day" class="form-label">День недели</label>
-            <input class="form-control" id="day" type="text" name="day">
-        </div>
-        <div class="col-auto me-2" id="timeList">
-            <label for="time" class="form-label">Время</label>
-            <input class="form-control" id="time" type="time" name="time">
-        </div>
-        <button type="button" class="btn border me-2" id="moreBtn">+</button>
-        <button type="button" class="btn border me-2" id="lessBtn">–</button>
-    </div>
-
-    <button type="submit" class="btn btn-primary mt-4">Добавить</button>
-</form>
-
-<form class="col-5 mt-2" action="/timetable/addFile" method="post">
-    <hr>
-    <label class="form-label" for="file">Добавить/заменить файл таблицы расписания</label>
-    <input class="form-control" type="file" accept=".xls, .xlsx, .xlsm">
-
-    <button type="submit" class="btn btn-primary mt-4">Отправить</button>
-</form>
-
-<script>
-    document.querySelector("#moreBtn").addEventListener("click", function () {
-        let day = document.querySelector('#dayList');
-        let time = document.querySelector('#timeList');
-        let entry = document.createElement('input');
-        entry.type = 'text';
-        entry.classList.add("form-control", "mt-1");
-        entry.name = 'day';
-        day.appendChild(entry);
-
-        entry = document.createElement('input');
-        entry.type = 'time';
-        entry.classList.add("form-control", "mt-1");
-        entry.name = 'time';
-        time.appendChild(entry);
-    })
-
-    document.querySelector("#lessBtn").addEventListener("click", function () {
-        let day = document.querySelector('#dayList').children;
-        let time = document.querySelector('#timeList').children;
-        if (document.querySelector('#dayList').childElementCount > 2) {
-            day[day.length-1].remove();
-            time[time.length-1].remove();
-        }
-    })
-</script>

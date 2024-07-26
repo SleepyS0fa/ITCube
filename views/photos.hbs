@@ -1,25 +1,69 @@
+{{#if admin}}
+    <div class="row d-flex flex-column align-items-center mb-2">
+        <button type="button" class="btn btn-outline-primary col-10 d-flex flex-column align-items-center shadow-sm" data-bs-toggle="modal" data-bs-target="#newfile">Добавить фото</button>
+    </div>
+
+    <div class="modal fade" id="newfile" tabindex="-1" aria-labelledby="newfile" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen-lg-down">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Добавить фото</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form class="mt-2" action="/add" id="newfileForm" enctype="multipart/form-data" method="post">
+                    <input multiple required class="form-control" type="file" name="image" id="timetable">
+                    <div class="form-text">до 10 фотографий</div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+                <button type="submit" form="newfileForm" class="btn btn-success mt-2">Добавить</button>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="/javascripts/gallery.js"></script>
+{{/if}}
 <div class="d-flex flex-row justify-content-center m-2">
+      
     <div class="d-flex flex-column justify-content-start align-items-start flex-wrap col-4">
         {{#each image1}}
-            <img src="{{img}}" class="card-img-top p-1 rounded mx-auto img-fluid" alt="...">
+            <div class="position-relative">
+                {{#if ../admin}}
+                    <form class="gallery_form" action="/admin/gallery/delete" method="post">
+                        <input type="hidden" name="_id" value="{{_id}}">
+                        <button type="submit" class="position-absolute top-0 end-0 badge border border-light bg-danger p-2">удалить</button>
+                    </form>
+                {{/if}}
+                <img src="{{image}}" class="card-img-top p-1 rounded mx-auto img-fluid" alt="..."></img>
+            </div>
         {{/each}}
     </div>
     <div class="d-flex flex-column justify-content-start align-items-start flex-wrap col-4">
         {{#each image2}}
-            <img src="{{img}}" class="card-img-top p-1 rounded mx-auto img-fluid" alt="...">
+            <div class="position-relative">
+                {{#if ../admin}}
+                    <form class="gallery_form" action="/admin/gallery/delete" method="post">
+                        <input type="hidden" name="_id" value="{{_id}}">
+                        <button type="submit" class="position-absolute top-0 end-0 badge border border-light bg-danger p-2">удалить</button>
+                    </form>
+                {{/if}}
+                <img src="{{image}}" class="card-img-top p-1 rounded mx-auto img-fluid" alt="..."></img>
+            </div>
         {{/each}}
     </div>
     <div class="d-flex flex-column justify-content-start align-items-start flex-wrap col-4">
         {{#each image3}}
-            <img src="{{img}}" class="card-img-top p-1 rounded mx-auto img-fluid" alt="...">
+            <div class="position-relative">
+                {{#if ../admin}}
+                    <form class="gallery_form" action="/admin/gallery/delete" method="post">
+                        <input type="hidden" name="_id" value="{{_id}}">
+                        <button type="submit" class="position-absolute top-0 end-0 badge border border-light bg-danger p-2">удалить</button>
+                    </form>
+                {{/if}}
+                <img src="{{image}}" class="card-img-top p-1 rounded mx-auto img-fluid" alt="..."></img>
+            </div>
         {{/each}}
     </div>
-
 </div>
-<form action="/photos/add" method="post" enctype="multipart/form-data">
-    <label class="form-label" for="images">до 10 фотографий</label>
-    <input multiple class="form-control" accept="image/*" type="file" name="images" id="images">
-
-    <button type="submit" class="btn btn-success mt-3">Опубликовать фото</button>
-</form>
-

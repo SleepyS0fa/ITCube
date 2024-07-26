@@ -1,13 +1,45 @@
 <div class="row d-flex flex-column align-items-center">
+{{#if admin}}
+
+    <button type="button" class="btn btn-outline-primary col-10 d-flex flex-column align-items-center shadow-sm" data-bs-toggle="modal" data-bs-target="#modal">Новая программа</button>
+
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Новая программа</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <form id="form" class="form" action="/admin/programs" method="post">
+                    <input type="text" class="form-control mt-2" name="title" placeholder="Название направления (Разработка VR/AR проектов)">
+                    <input type="text" class="form-control mt-2" name="src" placeholder="Сокращение направления (VR)">
+                    <input type="file" class="form-control mt-2" name="image" accept="image/*">
+                    <div id="editorjs" class="form-control mt-2"></div>
+                </form>
+            <script src="/javascripts/editor.bundle.js"></script>
+            </div>
+            <script src="/javascripts/submit_about-program.js"></script>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" form="form" class="btn btn-success mt-2">Добавить</button>
+        </div>
+        </div>
+    </div>
+    </div>
+{{/if}}
+
     <div class="col-11 d-flex flex-column align-items-center">
-        {{#each content}}
+        {{#each programs}}
             <div class="card col-11 p-3 mt-4">
                 <img src="{{img}}" class="rounded mx-auto d-block img-fluid" alt="">
                 <div class="card-body">
                     <div class="card-title h5">{{title}}</div>
-                    <div class="card-text">{{{body}}}</div>
+                    <div class="card-text">{{{card-body}}}</div>
                     <br>
-                    <a href="{{src}}" class="stretched-link btn btn-primary">Подробнее</a>
+                    <a href="{{#if ../admin}}/admin{{/if}}/programs?about={{src}}" class="stretched-link btn btn-primary">Подробнее</a>
                 </div>
             </div>
         {{/each}}

@@ -8,14 +8,14 @@
     <link rel='stylesheet' href='/stylesheets/style.css'/>
 <!--    <link href="dist/css/bvi.min.css" rel="stylesheet">-->
 </head>
-<body>
+<body style="background-image: url('/images/grid-dark.png');">
 <a href="#"><img src="/images/up-arrow.svg" height="50px" width="50px" alt="" class="border rounded-circle p-2 m-3 position-fixed bottom-0 end-0"></a>
 
 <div class="container-lg">
     <a id="upLink"></a>
-    <nav class="shadow-sm navbar navbar-expand-lg navbar-light bg-light sticky-top">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/"><img src="/images/it-cube-logo.svg" height="80px" width="80px" alt=""></a>
+    <nav class="shadow-sm navbar navbar-expand-lg navbar-light bg-light opacity-50">
+        <div class="container-fluid opacity-50">
+            <a class="navbar-brand" href="/"><img src="/images/it-cube-logo.svg" height="100px" width="100px" alt=""></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                     aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -23,28 +23,28 @@
             <div class="collapse navbar-collapse" id="navbarNav">
                 <ul class="navbar-nav">
                     <li class="nav-item">
-                        <a class="nav-link" href="/">О центре</a>
+                        <a class="nav-link {{#ifeq page ""}}active{{/ifeq}}" href="/">О центре</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/news">Новости</a>
+                        <a class="nav-link {{#ifeq page "news"}}active{{/ifeq}}" href="/news">Новости</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/programs">Направления и программы</a>
+                        <a class="nav-link {{#ifeq page "program"}}active{{/ifeq}}" href="/programs">Направления и программы</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/documentation">Документы</a>
+                        <a class="nav-link {{#ifeq page "documentation"}}active{{/ifeq}}" href="/documentation">Документы</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/teachers">Педагоги</a>
+                        <a class="nav-link {{#ifeq page "teacher"}}active{{/ifeq}}" href="/teachers">Педагоги</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/timetable">Расписание</a>
+                        <a class="nav-link {{#ifeq page "timetable"}}active{{/ifeq}}" href="/timetable">Расписание</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/photos">Фотоальбом</a>
+                        <a class="nav-link {{#ifeq page "gallery"}}active{{/ifeq}}" href="/gallery">Фотоальбом</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="/contacts">Контакты</a>
+                        <a class="nav-link {{#ifeq page "contacts"}}active{{/ifeq}}" href="/contacts">Контакты</a>
                     </li>
                 </ul>
             </div>
@@ -55,27 +55,30 @@
 
     <footer class="m-3 p-3 border-top border-2">
         <div class="row">
-            <div class="col-4">
-                <img src="/images/it-cube-logo.svg" width="80%" alt="">
+            <div class="col-5">
+                <div class="d-flex flex-row">
+                    <img class="m-4" src="/images/it-cube-logo.svg" width="40%" alt="">
+                    <img class="navbar-brand m-4" width="40%" src="/images/national-projects.png" alt="">
+                </div>
             </div>
-            <div class="col-4">
+            <div class="col-3">
                 <strong>Навигация:</strong>
                 <br>
-                <a href="/">О нас</a>
+                <a href="/admin">О нас</a>
                 <br>
-                <a href="/news">Новости</a>
+                <a href="/admin/news">Новости</a>
                 <br>
-                <a href="/programs">Направления и программы</a>
+                <a href="/admin/programs">Направления и программы</a>
                 <br>
-                <a href="/documentation">Документы</a>
+                <a href="/admin/documentation">Документы</a>
                 <br>
-                <a href="/teachers">Педагоги</a>
+                <a href="/admin/teachers">Педагоги</a>
                 <br>
-                <a href="/timetable">Расписание</a>
+                <a href="/admin/timetable">Расписание</a>
                 <br>
-                <a href="/photos">Фотоальбом</a>
+                <a href="/admin/photos">Фотоальбом</a>
                 <br>
-                <a href="/contacts">Контакты</a>
+                <a href="/admin/contacts">Контакты</a>
             </div>
             <div class="col-4">
                 <strong>Контактная информация:</strong>
@@ -87,6 +90,7 @@
                 <a href="https://vk.com/it_vgpgk"><img src="/images/vk.png" class="rounded-circle m-1" width="50px" height="50px"></a>
             </div>
         </div>
+        
     </footer>
 </div>
 

@@ -1,4 +1,38 @@
 <div class="row d-flex flex-column align-items-center">
+{{#if admin}}
+
+    <button type="button" class="btn btn-outline-primary col-10 d-flex flex-column align-items-center shadow-sm" data-bs-toggle="modal" data-bs-target="#modal">Новая программа</button>
+
+    <div class="modal fade" id="modal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+        <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Новая программа</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+            <div>
+                <form id="form" action="/teacher/add" method="post">
+                <input type="text" class="form-control mt-2" name="fullname" placeholder="ФИО">
+                <div class="input-group mt-2">
+                    <span class="input-group-text">Фото педагога</span>
+                    <input type="file" class="form-control" name="image">
+                </div>
+                <input type="text" class="form-control mt-2" name="aboutTeacher" placeholder="Краткое описание">
+                </form> 
+                <script src="/javascripts/editor.bundle.js"></script>
+            </div>
+            <script src="/javascripts/submit_about-program.js"></script>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+            <button type="submit" form="form" class="btn btn-success mt-2">Добавить</button>
+        </div>
+        </div>
+    </div>
+    </div>
+{{/if}}
+
     <div class="col-11 d-flex flex-column align-items-center">
         {{#each teachers}}
         <div class="card col-11 p-3 mt-4">
@@ -8,7 +42,9 @@
                     <div class="ms-2 d-flex flex-column justify-content-center">
                         <div class="card-title h4 fs-3 mb-3">{{fullName}}</div>
                         <div class="card-text fs-4 mt-3">{{{aboutTeacher}}}</div>
-                        <a class="btn btn-danger" href="/teachers/delete/{{fullName}}">Удалить</a>
+                        {{#if ../admin}}
+                            <a class="btn btn-danger" href="/teachers/delete/{{fullName}}">Удалить</a>
+                        {{/if}}
                     </div>
                 </div>
             </div>
@@ -16,16 +52,3 @@
         {{/each}}
     </div>
 </div>
-
-<hr>
-
-<form class="form" action="/teachers/create" method="post" enctype="multipart/form-data">
-    <div class="input-group mb-2">
-        <label class="input-group-text" for="image">Фото</label>
-        <input class="form-control" required type="file" accept="image/*" name="image" id="image">
-    </div>
-    
-    <input class="mb-2 form-control" required type="text" name="name" placeholder="ФИО*">
-    <input class="mb-2 form-control" required type="text" name="description" placeholder="Описание*">
-    <button class="btn btn-primary" type="submit">Добавить</button>
-</form>

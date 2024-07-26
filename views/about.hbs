@@ -1,4 +1,4 @@
-<div class="row ">
+<div class="row">
     <div class="h1 pt-2 pb-2">О центре</div>
     <div class="row">
         <div class="col-7 pt-2 pb-2" style="text-align: justify">
@@ -13,16 +13,12 @@
             <img class="float-end img-fluid" src="https://pic.pnnet.dev/1920x1080" alt="16x9">
         </div>
     </div>
-    <div class="col-5 d-flex flex-column justify-content-evenly">
+    <div class="col-6 d-flex flex-column justify-content-evenly " style="background-image: url('/images/lines-dots-left.svg'); background-position: -25% 75%;">
         <div class="h3">Наши направления:</div>
-        <a href="/more?about=python" class="btn btn-primary border rounded p-3 shadow-sm">Программирование на Python</a>
-        <a href="/more?about=java" class="btn btn-primary border rounded p-3 shadow-sm">Программирование на Java</a>
-        <a href="/more?about=robots" class="btn btn-primary border rounded p-3 shadow-sm">Программирование роботов</a>
-        <a href="/more?about=admin" class="btn btn-primary border rounded p-3 shadow-sm">Системное администрирование</a>
-        <a href="/more?about=vr" class="btn btn-primary border rounded p-3 shadow-sm">Разработка VR/AR</a>
-        <a href="/more?about=mobile" class="btn btn-primary border rounded p-3 shadow-sm">Мобильная разработка</a>
+        {{#each programs}}
+            <a href="{{#if ../admin}}/admin{{/if}}/programs?about={{src}}" class="col-10 btn btn-primary border rounded p-3 shadow-sm">{{title}}</a>
+        {{/each}}
     </div>
-    <div class="col-1"></div>
     <div class="col-6 pt-3">
         <div class="border rounded p-2">
             <strong>(переписать)</strong>
